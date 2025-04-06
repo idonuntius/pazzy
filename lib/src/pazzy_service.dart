@@ -5,11 +5,18 @@ import 'package:pazzy/src/pazzy_pagination.dart';
 
 /// [PazzyService] performs pagination processing.
 final class PazzyService<T> {
-  /// Constructor of [PazzyService]
-  const PazzyService({required this.items, required this.perPage});
+  /// [PazzyService] performs pagination processing.
+  const PazzyService({
+    required this.items,
+    required this.currentPage,
+    required this.perPage,
+  });
 
   /// List of items to be paginated.
   final List<T> items;
+
+  /// The current page.
+  final int currentPage;
 
   /// Number of page items to display.
   final int perPage;
@@ -18,7 +25,7 @@ final class PazzyService<T> {
   int get _itemLength => items.length;
 
   /// Create items to display on the current page.
-  List<T> createSeparatedItems(int currentPage) {
+  List<T> createDisplayItems() {
     final offset = (currentPage - 1) * perPage + 1;
     if (offset == 0 && perPage < _itemLength) {
       return items;
@@ -29,7 +36,7 @@ final class PazzyService<T> {
       return [];
     }
 
-    final toIndex = _itemLength.coerceAtMost(fromIndex + _itemLength);
+    final toIndex = _itemLength.coerceAtMost(fromIndex + perPage);
     return items.sublist(fromIndex, toIndex);
   }
 
@@ -37,7 +44,7 @@ final class PazzyService<T> {
   ///
   /// [PazzyPagination] Model Description
   /// * `current`: The current page.
-  /// * `prev`: The page before the current page.
+  /// * `previous`: The page before the current page.
   ///           If it is not possible to go back, `null` is used.
   /// * `next`: The next page after the current page.
   /// .         This will be `null` if you cannot go to the next page.
@@ -108,10 +115,10 @@ final class PazzyService<T> {
   ///     (previous: 7, next: 9, numbers: [1, null, 6, 7, 8, 9])
   ///   current:9 ===>
   ///     (previous: 8, next: null, numbers: [1, null, 7, 8, 9])
-  PazzyPagination createPazzyNumbers(int currentPage) {
-    final lastPage = (_itemLength.toDouble() / perPage).ceil();
-    final prev = currentPage == 1 ? null : currentPage - 1;
-    final next = currentPage == lastPage ? null : currentPage + 1;
+  PazzyPagination createPazzyPagination() {
+    final lastPage = (_itemLength.toDouble() / perPage).ceil().coerceAtLeast(1);
+    final prev = currentPage <= 1 || currentPage > lastPage ? null : currentPage - 1;
+    final next = currentPage >= lastPage ? null : currentPage + 1;
     final numbers = <int?>[1];
 
     if (currentPage == 1 && lastPage == 1) {
@@ -133,8 +140,8 @@ final class PazzyService<T> {
     //             rangeStart      current         rangeEnd
     // 1      null      8      9      10      11      12      null      20
     const rangeSize = 2;
-    final rangeStart = currentPage - rangeSize;
-    final rangeEnd = currentPage + rangeSize;
+    final rangeStart = min(currentPage, lastPage) - rangeSize;
+    final rangeEnd = min(currentPage, lastPage) + rangeSize;
 
     for (var i = max(rangeStart, 2); i <= min(lastPage, rangeEnd); i++) {
       numbers.add(i);
