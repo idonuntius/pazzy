@@ -25,10 +25,11 @@ final class PazzyService<T> {
   int get _itemLength => items.length;
 
   /// Create items to display on the current page.
-  List<T> createDisplayItems() {
+  List<int> createDisplayIndexList() {
+    final indexList = List.generate(_itemLength, (number) => number);
     final offset = (currentPage - 1) * perPage + 1;
     if (offset == 0 && perPage < _itemLength) {
-      return items;
+      return indexList;
     }
 
     final fromIndex = offset - 1;
@@ -37,7 +38,7 @@ final class PazzyService<T> {
     }
 
     final toIndex = _itemLength.coerceAtMost(fromIndex + perPage);
-    return items.sublist(fromIndex, toIndex);
+    return indexList.sublist(fromIndex, toIndex);
   }
 
   /// Create the necessary values for pagination display.

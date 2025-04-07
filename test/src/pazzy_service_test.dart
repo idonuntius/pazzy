@@ -6,7 +6,7 @@ void main() {
   group('PazzyService', () {
     const perPage = 10;
 
-    group('#createDisplayItems', () {
+    group('#createDisplayIndexList', () {
       for (final (items, currentPage, expected) in [
         (<int>[], 1, <int>[]),
         (<int>[0, 1, 2], 1, <int>[0, 1, 2]),
@@ -19,7 +19,7 @@ void main() {
       ]) {
         test('when items length is ${items.length} and currentPage is $currentPage - should be $expected', () {
           final service = PazzyService(items: items, currentPage: currentPage, perPage: perPage);
-          final actual = service.createDisplayItems();
+          final actual = service.createDisplayIndexList();
           expect(actual, expected);
         });
       }
