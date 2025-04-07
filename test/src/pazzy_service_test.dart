@@ -18,7 +18,7 @@ void main() {
         (List.generate(45, (number) => number), 6, <int>[]),
       ]) {
         test('when items length is ${items.length} and currentPage is $currentPage - should be $expected', () {
-          final service = PazzyService(items: items, currentPage: currentPage, perPage: perPage);
+          final service = PazzyService(itemCount: items.length, currentPage: currentPage, perPage: perPage);
           final actual = service.createDisplayIndexList();
           expect(actual, expected);
         });
@@ -83,7 +83,7 @@ void main() {
         ),
       ]) {
         test('when items length is ${items.length} and currentPage is $currentPage - should be $expected', () {
-          final service = PazzyService(items: items, currentPage: currentPage, perPage: perPage);
+          final service = PazzyService(itemCount: items.length, currentPage: currentPage, perPage: perPage);
           final actual = service.createPazzyPagination();
           expect(actual, expected);
         });

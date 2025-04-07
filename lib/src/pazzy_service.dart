@@ -4,16 +4,16 @@ import 'package:pazzy/src/extension/int_extension.dart';
 import 'package:pazzy/src/pazzy_pagination.dart';
 
 /// [PazzyService] performs pagination processing.
-final class PazzyService<T> {
+final class PazzyService {
   /// [PazzyService] performs pagination processing.
   const PazzyService({
-    required this.items,
+    required this.itemCount,
     required this.currentPage,
     required this.perPage,
   });
 
-  /// List of items to be paginated.
-  final List<T> items;
+  /// Item count.
+  final int itemCount;
 
   /// The current page.
   final int currentPage;
@@ -21,23 +21,20 @@ final class PazzyService<T> {
   /// Number of page items to display.
   final int perPage;
 
-  /// Items size
-  int get _itemLength => items.length;
-
   /// Create items to display on the current page.
   List<int> createDisplayIndexList() {
-    final indexList = List.generate(_itemLength, (number) => number);
+    final indexList = List.generate(itemCount, (number) => number);
     final offset = (currentPage - 1) * perPage + 1;
-    if (offset == 0 && perPage < _itemLength) {
+    if (offset == 0 && perPage < itemCount) {
       return indexList;
     }
 
     final fromIndex = offset - 1;
-    if (_itemLength <= fromIndex) {
+    if (itemCount <= fromIndex) {
       return [];
     }
 
-    final toIndex = _itemLength.coerceAtMost(fromIndex + perPage);
+    final toIndex = itemCount.coerceAtMost(fromIndex + perPage);
     return indexList.sublist(fromIndex, toIndex);
   }
 
@@ -117,7 +114,7 @@ final class PazzyService<T> {
   ///   current:9 ===>
   ///     (previous: 8, next: null, numbers: [1, null, 7, 8, 9])
   PazzyPagination createPazzyPagination() {
-    final lastPage = (_itemLength.toDouble() / perPage).ceil().coerceAtLeast(1);
+    final lastPage = (itemCount.toDouble() / perPage).ceil().coerceAtLeast(1);
     final prev = currentPage <= 1 || currentPage > lastPage ? null : currentPage - 1;
     final next = currentPage >= lastPage ? null : currentPage + 1;
     final numbers = <int?>[1];
