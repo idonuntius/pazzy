@@ -1,5 +1,6 @@
 import 'dart:math';
 
+/// Extension of Int.
 extension IntExtension on int {
   /// Forces the value to be less than or equal to the specified upper limit.
   int coerceAtMost(int maximumValue) => min(this, maximumValue);
