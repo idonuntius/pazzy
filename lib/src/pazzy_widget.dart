@@ -1,27 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pazzy/src/pazzy_service.dart';
-
-/// Signature for a function that creates a widget for a given index.
-typedef PazzyItemBuilder = Widget Function(BuildContext context, int index);
-
-/// Signature for a function that creates a widget for a given number.
-typedef PazzyNumberBuilder = Widget Function(
-  BuildContext context,
-  int? number,
-  bool current,
-);
-
-/// Signature for a function that creates the previous Button widget.
-typedef PazzyPreviousButtonBuilder = Widget Function(
-  BuildContext context,
-  int? previousPage,
-);
-
-/// Signature for a function that creates the next Button widget.
-typedef PazzyNextButtonBuilder = Widget Function(
-  BuildContext context,
-  int? nextPage,
-);
+import 'package:pazzy/src/signature.dart';
 
 /// Widget that displays Items and pagination with numbered buttons.
 class PazzyWidget extends StatelessWidget {
@@ -36,7 +15,7 @@ class PazzyWidget extends StatelessWidget {
     required this.nextButtonBuilder,
     this.itemsAndPaginationSpacing = 0,
     this.numberButtonSpacing = 0,
-    this.paginationHeigh = 44,
+    this.paginationHeight = 44,
     super.key,
   })  : assert(currentPage > 0, 'currentPage must be greater than zero.'),
         assert(perPage > 0, 'perPage must be greater than zero.');
@@ -77,7 +56,7 @@ class PazzyWidget extends StatelessWidget {
   final double numberButtonSpacing;
 
   /// Hight of pagination widget.
-  final double paginationHeigh;
+  final double paginationHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +81,7 @@ class PazzyWidget extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: paginationHeigh,
+          height: paginationHeight,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             physics: const NeverScrollableScrollPhysics(),
