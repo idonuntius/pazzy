@@ -124,6 +124,7 @@ final class PazzyService {
         current: currentPage,
         previous: prev,
         next: next,
+        totalNumberOfPages: lastPage,
         numbers: numbers,
       );
     }
@@ -156,6 +157,7 @@ final class PazzyService {
       current: currentPage,
       previous: prev,
       next: next,
+      totalNumberOfPages: lastPage,
       numbers: numbers,
     );
   }

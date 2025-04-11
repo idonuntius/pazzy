@@ -9,6 +9,7 @@ class PazzyPagination {
     required this.current,
     required this.previous,
     required this.next,
+    required this.totalNumberOfPages,
     required this.numbers,
   });
 
@@ -23,6 +24,9 @@ class PazzyPagination {
   /// This will be `null` if you cannot go to the next page.
   final int? next;
 
+  /// Total number of pages.
+  final int totalNumberOfPages;
+
   /// An array of numbers used for pagination.
   /// Omitted parts are filled with `null`.
   final List<int?> numbers;
@@ -35,14 +39,16 @@ class PazzyPagination {
             (identical(other.current, current) || other.current == current) &&
             (identical(other.previous, previous) || other.previous == previous) &&
             (identical(other.next, next) || other.next == next) &&
+            (identical(other.totalNumberOfPages, totalNumberOfPages) ||
+                other.totalNumberOfPages == totalNumberOfPages) &&
             const DeepCollectionEquality().equals(other.numbers, numbers));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, current, previous, next, numbers);
+  int get hashCode => Object.hash(runtimeType, current, previous, next, totalNumberOfPages, numbers);
 
   @override
   String toString() {
-    return 'PazzyPagination(current: $current, previous: $previous, next: $next, numbers: $numbers)';
+    return 'PazzyPagination(current: $current, previous: $previous, next: $next, totalNumberOfPages: $totalNumberOfPages, numbers: $numbers)';
   }
 }
