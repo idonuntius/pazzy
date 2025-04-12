@@ -1,6 +1,6 @@
 name: pazzy
-description: "A new Flutter package project."
-version: 0.0.1
+description: "pazzy is a simple and flexible Flutter pagination widget library that supports both numbered and numberless pagination styles."
+version: 1.0.0
 repository: https://github.com/idonuntius/pazzy
 homepage: https://pub.dev/packages/pazzy
 
