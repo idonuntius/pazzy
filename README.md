@@ -1,8 +1,8 @@
-## Pazzy
+## pazzy
 
 <img src='./example.gif' width=280 />
 
-**Pazzy** is a simple and flexible Flutter pagination widget library that supports both numbered and numberless pagination styles.
+**pazzy** is a simple and flexible Flutter pagination widget library that supports both numbered and numberless pagination styles.
 
 
 ## Features
