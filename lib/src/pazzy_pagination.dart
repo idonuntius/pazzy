@@ -1,5 +1,5 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+import 'package:pazzy/src/extension/list_extension.dart';
 
 /// This model defines pagination information.
 @immutable
@@ -41,7 +41,7 @@ class PazzyPagination {
             (identical(other.next, next) || other.next == next) &&
             (identical(other.totalNumberOfPages, totalNumberOfPages) ||
                 other.totalNumberOfPages == totalNumberOfPages) &&
-            const DeepCollectionEquality().equals(other.numbers, numbers));
+            other.numbers.equals(numbers));
   }
 
   @override
